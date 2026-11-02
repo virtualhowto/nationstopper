@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check JavaScript syntax
         run: node --check game.js
+      - name: Simulate complete race
+        run: node smoke-test.cjs
       - name: Verify files
         run: |
           test -s index.html
