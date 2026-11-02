@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090c19">
+  <meta name="description" content="Nation Stopper: a cinematic, playable 24-runner Australian Cup racing game. Choose your horse, ride the rails and chase the finish.">
+  <title>NATION STOPPER — The Race Is Yours</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Nation Stopper home"><span class="brand-icon">NS<span class="brand-dot">.</span></span><span class="brand-name">NATION <b>STOPPER</b></span></a>
+    <div class="header-right"><span class="header-pill"><span class="live-dot"></span> CUP DAY / 2026</span><button class="icon-button" id="soundToggle" type="button" aria-label="Enable sound" title="Sound on/off">♫ <span id="soundLabel">OFF</span></button></div>
+  </header>
+  <main id="home">
+    <section class="intro">
+      <div class="eyebrow"><span class="eyebrow-line"></span> THE RACE THAT STOPS A NATION <span class="eyebrow-line"></span></div>
+      <h1>EVERY SECOND<br><em>COUNTS.</em></h1>
+      <p class="intro-sub">Twenty-four runners. Three thousand two hundred metres. One shot at the finish line. Choose your champion and ride the race yourself.</p>
+      <div class="race-facts"><span><b>FLEMINGTON</b><small>MELBOURNE, AU</small></span><i></i><span><b>3 NOV 2026</b><small>CUP DAY</small></span><i></i><span><b>3,200 M</b><small>THE DISTANCE</small></span><i></i><span><b>SOFT 5</b><small>GAME CONDITIONS</small></span></div>
+    </section>
+    <section class="game-shell" aria-label="Nation Stopper horse racing game">
+      <div class="game-heading"><div><span class="section-kicker">THE EXPERIENCE / 01</span><h2>THE STARTING GATES</h2></div><span class="tag">PLAYABLE ARCADE SIMULATION</span></div>
+      <div class="stage-wrap" id="stageWrap">
+        <canvas id="raceCanvas" role="img" aria-label="Animated horse racing course viewed from behind your horse. Gameplay details are also shown in the live leaderboard."></canvas>
+        <div class="film-grain" aria-hidden="true"></div>
+        <div class="cinema-bars" aria-hidden="true"></div>
+        <div class="stage-top">
+          <div class="broadcast"><span class="signal"></span><span>NS / LIVE RACE</span></div>
+          <div class="race-round" id="phaseLabel">PRE-RACE</div>
+        </div>
+        <div class="stage-middle" id="countdown" aria-live="polite"></div>
+        <div class="stage-bottom" id="raceHud" hidden>
+          <div class="hud-metric"><small>POSITION</small><strong id="positionValue">24<span>/24</span></strong></div>
+          <div class="hud-metric"><small>REMAINING</small><strong id="distanceValue">3,200<span>m</span></strong></div>
+          <div class="hud-metric"><small>RACE CLOCK</small><strong id="clockValue">00:00</strong></div>
+          <div class="meter-group"><div class="meter-label"><span>STAMINA</span><b id="staminaText">100%</b></div><div class="meter-track"><span id="staminaFill" class="meter-fill stamina"></span></div><div class="meter-label focus-label"><span>FINISHING KICK</span><b id="focusText">READY</b></div><div class="meter-track"><span id="focusFill" class="meter-fill focus"></span></div></div>
+        </div>
+        <div class="start-overlay" id="startOverlay">
+          <span class="start-topline">WELCOME TO FLEMINGTON</span>
+          <div class="start-seal" aria-hidden="true"><span>★</span><b>3200</b><small>METRES</small></div>
+          <h3>THE RACE<br><em>IS YOURS.</em></h3>
+          <p>Make the perfect run. Save your horse for the straight. Find the gap when it matters.</p>
+          <button class="primary-button" id="startButton" type="button">ENTER THE GATES <span>↗</span></button>
+          <small>CHOOSE YOUR HORSE BELOW BEFORE STARTING</small>
+        </div>
+        <div class="finish-overlay" id="finishOverlay" hidden>
+          <div class="finish-content">
+            <span class="section-kicker" id="finishKicker">THE FINISH LINE</span>
+            <h3 id="finishTitle">PHOTO FINISH</h3>
+            <div id="finishPosition" class="finish-position">1ST</div>
+            <p id="finishMessage"></p>
+            <div id="finishPodium" class="finish-podium"></div>
+            <button id="againButton" class="primary-button" type="button">RACE AGAIN <span>↗</span></button>
+          </div>
+        </div>
+        <div class="commentary" id="commentary" aria-live="polite">Choose your horse. The crowd is waiting.</div>
+        <div class="mobile-instructions" id="rideHint">HOLD RIDE TO BUILD SPEED · RELEASE TO RECOVER</div>
+      </div>
+      <div class="control-deck">
+        <div class="deck-label"><span class="section-kicker">JOCKEY CONTROLS</span><span class="desktop-help">← / → CHANGE LANES &nbsp; · &nbsp; HOLD SPACE TO RIDE &nbsp; · &nbsp; SHIFT FOR KICK</span></div>
+        <div class="control-buttons">
+          <button class="control-button steer" id="leftButton" type="button" aria-label="Move left"><span>←</span><small>LEFT</small></button>
+          <button class="control-button ride" id="rideButton" type="button"><span>RIDE</span><small>HOLD FOR PACE</small></button>
+          <button class="control-button kick" id="kickButton" type="button"><span>⚡ KICK</span><small>FINISHING BURST</small></button>
+          <button class="control-button steer" id="rightButton" type="button" aria-label="Move right"><span>→</span><small>RIGHT</small></button>
+          <button class="control-button pause" id="pauseButton" type="button" aria-label="Pause race"><span>Ⅱ</span><small>PAUSE</small></button>
+        </div>
+      </div>
+    </section>
+    <section class="below-stage">
+      <div class="selection-panel">
+        <div class="panel-header"><div><span class="section-kicker">THE EXPERIENCE / 02</span><h2>CHOOSE YOUR MOUNT</h2></div><span class="tag"><span class="gold-dot"></span> 24 RUNNERS</span></div>
+        <p class="panel-copy">Every runner from the supplied 2026 Cup field. Each has a different speed and stamina profile. The finish is earned, not scripted.</p>
+        <label class="field-label" for="horseSelect">YOUR HORSE</label>
+        <select id="horseSelect" class="horse-select" aria-describedby="horseHelp"></select>
+        <div id="horseProfile" class="horse-profile" aria-live="polite"></div>
+        <p id="horseHelp" class="microcopy">Changing your horse before the start changes your rider and silks. After a race, use Race Again to choose a different mount.</p>
+        <div class="tip-box"><span class="tip-star">✦</span><div><b>RIDE SMART, NOT JUST FAST.</b><p>Holding RIDE spends stamina. Release it on the back straight, then use KICK when your focus meter is full. Change lanes to avoid being boxed in.</p></div></div>
+      </div>
+      <div class="leaderboard-panel">
+        <div class="panel-header"><div><span class="section-kicker">THE EXPERIENCE / 03</span><h2>THE RUNNING ORDER</h2></div><span id="leaderboardState" class="tag">READY TO RACE</span></div>
+        <div class="leaderboard-head"><span>POS</span><span>HORSE / JOCKEY</span><span>GAP</span></div>
+        <ol class="leaderboard" id="leaderboard"></ol>
+        <p class="microcopy">The leaderboard updates during the simulation. All 24 runners race, including horses outside the visible camera view.</p>
+      </div>
+    </section>
+    <section class="closing"><span class="section-kicker">BUILT FOR THE BIG MOMENT</span><h2>ONE RACE.<br><em>A THOUSAND STORIES.</em></h2><p>Built for your browser, your phone, and the big screen. All game artwork is rendered in real time; no downloads or sign-up required.</p><button class="text-link" type="button" id="backToTrack">BACK TO THE GATES ↗</button></section>
+  </main>
+  <footer><span>NATION STOPPER © 2026</span><span>UNOFFICIAL FAN-MADE ARCADE GAME · NOT A BETTING PLATFORM · FICTIONAL SIMULATION</span><a href="https://github.com/virtualhowto/nationstopper" target="_blank" rel="noopener">SOURCE ON GITHUB ↗</a></footer>
+  <script src="./game.js" defer></script>
+</body>
+</html>
