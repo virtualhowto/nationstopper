@@ -17,15 +17,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check JavaScript syntax
-        run: node --check game.js
+        run: |
+          node --check game.js
+          node --check ui-v2.js
       - name: Simulate complete race
         run: node smoke-test.cjs
+      - name: Verify upgraded UI
+        run: node ui-smoke-test.cjs
       - name: Verify files
         run: |
           test -s index.html
           test -s styles.css
           test -s game.js
           test -s favicon.svg
+          test -s ui-v2.css
+          test -s ui-v2.js
           grep -q "raceCanvas" index.html
           grep -q "RACE_LENGTH=3200" game.js
   deploy:
