@@ -7,6 +7,7 @@
   <meta name="description" content="Nation Stopper: a cinematic, playable 24-runner Australian Cup racing game. Choose your horse, ride the rails and chase the finish.">
   <title>NATION STOPPER — The Race Is Yours</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./ui-v2.css">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -16,14 +17,27 @@
     <div class="header-right"><span class="header-pill"><span class="live-dot"></span> CUP DAY / 2026</span><button class="icon-button" id="soundToggle" type="button" aria-label="Enable sound" title="Sound on/off">♫ <span id="soundLabel">OFF</span></button></div>
   </header>
   <main id="home">
-    <section class="intro">
-      <div class="eyebrow"><span class="eyebrow-line"></span> THE RACE THAT STOPS A NATION <span class="eyebrow-line"></span></div>
-      <h1>EVERY SECOND<br><em>COUNTS.</em></h1>
-      <p class="intro-sub">Twenty-four runners. Three thousand two hundred metres. One shot at the finish line. Choose your champion and ride the race yourself.</p>
-      <div class="race-facts"><span><b>FLEMINGTON</b><small>MELBOURNE, AU</small></span><i></i><span><b>3 NOV 2026</b><small>CUP DAY</small></span><i></i><span><b>3,200 M</b><small>THE DISTANCE</small></span><i></i><span><b>SOFT 5</b><small>GAME CONDITIONS</small></span></div>
+    <section class="intro intro-v2" aria-label="Nation Stopper introduction">
+      <div class="intro-main">
+        <div class="eyebrow"><span class="eyebrow-line"></span> THE RACE THAT STOPS A NATION</div>
+        <h1>MAKE<br>HISTORY<span class="hero-punctuation">.</span></h1>
+        <p class="intro-sub">Twenty-four runners. One legendary straight. Race from the saddle in a cinematic Melbourne Cup challenge.</p>
+        <div class="hero-actions"><a class="primary-button hero-primary" href="#raceArena">START YOUR RACE <span>↗</span></a><a class="hero-secondary" href="#lineup">EXPLORE THE FIELD <span>↘</span></a></div>
+        <div class="race-facts"><span><b>FLEMINGTON</b><small>MELBOURNE, AU</small></span><i></i><span><b>03 NOV 2026</b><small>CUP DAY</small></span><i></i><span><b>3,200 M</b><small>THE DISTANCE</small></span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-art-glow"></div><div class="hero-art-kicker">FLEMINGTON / MELBOURNE</div>
+        <div class="hero-track">
+          <span class="track-orbit orbit-one"></span><span class="track-orbit orbit-two"></span><span class="track-orbit orbit-three"></span>
+          <span class="track-marker marker-one"></span><span class="track-marker marker-two"></span><span class="track-marker marker-three"></span>
+          <div class="hero-track-center"><span>THE DISTANCE</span><strong>3,200</strong><small>METRES</small></div>
+          <span class="track-straight">THE HOME STRAIGHT</span>
+        </div>
+        <div class="hero-art-bottom"><span>24 STARTERS<br><b>ONE FINISH LINE</b></span><span class="hero-arrow">↗</span><span class="hero-edition">2026</span></div>
+      </div>
     </section>
-    <section class="game-shell" aria-label="Nation Stopper horse racing game">
-      <div class="game-heading"><div><span class="section-kicker">THE EXPERIENCE / 01</span><h2>THE STARTING GATES</h2></div><span class="tag">PLAYABLE ARCADE SIMULATION</span></div>
+    <section class="game-shell" id="raceArena" aria-label="Nation Stopper horse racing game">
+      <div class="game-heading"><div><span class="section-kicker">LIVE / THE EXPERIENCE</span><h2>TAKE THE REINS <span class="heading-suffix">/ 01</span></h2></div><div class="game-heading-actions"><span class="tag"><span class="live-dot"></span> INTERACTIVE RACE</span><span class="tag hide-mobile">NO INSTALL REQUIRED</span></div></div>
       <div class="stage-wrap" id="stageWrap">
         <canvas id="raceCanvas" role="img" aria-label="Animated horse racing course viewed from behind your horse. Gameplay details are also shown in the live leaderboard."></canvas>
         <div class="film-grain" aria-hidden="true"></div>
@@ -33,19 +47,29 @@
           <div class="race-round" id="phaseLabel">PRE-RACE</div>
         </div>
         <div class="stage-middle" id="countdown" aria-live="polite"></div>
+        <aside class="live-race-card" id="liveRaceCard" aria-label="Live race leaders" hidden>
+          <div class="live-card-heading"><span><span class="signal"></span> LIVE FIELD</span><span class="card-live">TOP THREE</span></div>
+          <div id="liveTopThree" class="live-top-three"></div>
+          <div class="player-callout" id="playerCallout">YOUR MOUNT <strong>12 · HOPEWELL ROCK</strong></div>
+        </aside>
         <div class="stage-bottom" id="raceHud" hidden>
           <div class="hud-metric"><small>POSITION</small><strong id="positionValue">24<span>/24</span></strong></div>
           <div class="hud-metric"><small>REMAINING</small><strong id="distanceValue">3,200<span>m</span></strong></div>
           <div class="hud-metric"><small>RACE CLOCK</small><strong id="clockValue">00:00</strong></div>
+          <div class="hud-metric pace-metric"><small>RIDE STATUS</small><strong id="paceValue">SETTLED</strong></div>
           <div class="meter-group"><div class="meter-label"><span>STAMINA</span><b id="staminaText">100%</b></div><div class="meter-track"><span id="staminaFill" class="meter-fill stamina"></span></div><div class="meter-label focus-label"><span>FINISHING KICK</span><b id="focusText">READY</b></div><div class="meter-track"><span id="focusFill" class="meter-fill focus"></span></div></div>
         </div>
         <div class="start-overlay" id="startOverlay">
           <span class="start-topline">WELCOME TO FLEMINGTON</span>
           <div class="start-seal" aria-hidden="true"><span>★</span><b>3200</b><small>METRES</small></div>
           <h3>THE RACE<br><em>IS YOURS.</em></h3>
-          <p>Make the perfect run. Save your horse for the straight. Find the gap when it matters.</p>
+          <p>Pick a mount, save your stamina and time your move through the field.</p>
+          <div class="gate-pick"><label for="gateHorseSelect">YOUR HORSE</label><select id="gateHorseSelect" aria-label="Choose your horse at the starting gates"></select></div>
           <button class="primary-button" id="startButton" type="button">ENTER THE GATES <span>↗</span></button>
-          <small>CHOOSE YOUR HORSE BELOW BEFORE STARTING</small>
+          <small>ARROWS = LANES <span aria-hidden="true">·</span> HOLD SPACE = RIDE <span aria-hidden="true">·</span> SHIFT = KICK</small>
+        </div>
+        <div class="pause-overlay" id="pauseOverlay" hidden>
+          <span class="section-kicker">RACE CONTROL</span><h3>RACE PAUSED</h3><p>Your horse is waiting. The clock is stopped.</p><button id="resumeButton" class="primary-button" type="button">RESUME RACE <span>▶</span></button><small>PRESS P TO CONTINUE</small>
         </div>
         <div class="finish-overlay" id="finishOverlay" hidden>
           <div class="finish-content">
@@ -60,6 +84,11 @@
         <div class="commentary" id="commentary" aria-live="polite">Choose your horse. The crowd is waiting.</div>
         <div class="mobile-instructions" id="rideHint">HOLD RIDE TO BUILD SPEED · RELEASE TO RECOVER</div>
       </div>
+      <div class="course-strip" id="courseStrip" aria-label="Race progress">
+        <div class="course-head"><span><b id="courseStage">PRE-RACE</b><small id="courseStrategy">A clean run starts with a good position.</small></span><span id="coursePercent">0% COMPLETE</span></div>
+        <div class="course-track" aria-hidden="true"><div id="courseProgress" class="course-progress"></div><span class="course-checkpoint" style="left:25%"></span><span class="course-checkpoint" style="left:50%"></span><span class="course-checkpoint" style="left:75%"></span><span class="course-marker" id="courseMarker"></span></div>
+        <div class="course-labels"><span>START</span><span>2400M</span><span>1600M</span><span>800M</span><span>FINISH</span></div>
+      </div>
       <div class="control-deck">
         <div class="deck-label"><span class="section-kicker">JOCKEY CONTROLS</span><span class="desktop-help">← / → CHANGE LANES &nbsp; · &nbsp; HOLD SPACE TO RIDE &nbsp; · &nbsp; SHIFT FOR KICK</span></div>
         <div class="control-buttons">
@@ -72,7 +101,7 @@
       </div>
     </section>
     <section class="below-stage">
-      <div class="selection-panel">
+      <div class="selection-panel" id="lineup">
         <div class="panel-header"><div><span class="section-kicker">THE EXPERIENCE / 02</span><h2>CHOOSE YOUR MOUNT</h2></div><span class="tag"><span class="gold-dot"></span> 24 RUNNERS</span></div>
         <p class="panel-copy">Every runner from the supplied 2026 Cup field. Each has a different speed and stamina profile. The finish is earned, not scripted.</p>
         <label class="field-label" for="horseSelect">YOUR HORSE</label>
@@ -83,6 +112,7 @@
       </div>
       <div class="leaderboard-panel">
         <div class="panel-header"><div><span class="section-kicker">THE EXPERIENCE / 03</span><h2>THE RUNNING ORDER</h2></div><span id="leaderboardState" class="tag">READY TO RACE</span></div>
+        <div class="board-tools" role="group" aria-label="Leaderboard view"><button class="board-tab is-selected" id="boardAll" type="button" aria-pressed="true">ALL 24</button><button class="board-tab" id="boardTop" type="button" aria-pressed="false">TOP 8</button><button class="board-focus" id="boardFind" type="button">FIND MY HORSE ↗</button></div>
         <div class="leaderboard-head"><span>POS</span><span>HORSE / JOCKEY</span><span>GAP</span></div>
         <ol class="leaderboard" id="leaderboard"></ol>
         <p class="microcopy">The leaderboard updates during the simulation. All 24 runners race, including horses outside the visible camera view.</p>
@@ -92,5 +122,6 @@
   </main>
   <footer><span>NATION STOPPER © 2026</span><span>UNOFFICIAL FAN-MADE ARCADE GAME · NOT A BETTING PLATFORM · FICTIONAL SIMULATION</span><a href="https://github.com/virtualhowto/nationstopper" target="_blank" rel="noopener">SOURCE ON GITHUB ↗</a></footer>
   <script src="./game.js" defer></script>
+  <script src="./ui-v2.js" defer></script>
 </body>
 </html>
